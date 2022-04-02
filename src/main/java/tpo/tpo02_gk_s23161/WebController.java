@@ -2,16 +2,21 @@ package tpo.tpo02_gk_s23161;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class WebController implements Initializable {
@@ -25,10 +30,11 @@ public class WebController implements Initializable {
     @FXML
     private Button sceneChangeButton;
 
+
     private WebEngine webEngine;
 
-    private String uRL = "https://pl.wikipedia.org/wiki/Warszawa";
 
+    private String uRL = "https://pl.wikipedia.org/wiki/Warszawa";
     private boolean isSecondSceneActive = false;
 
     @Override
@@ -37,11 +43,17 @@ public class WebController implements Initializable {
         clock();
 
         webEngine = webView.getEngine();
-        changeData();
+        webEngine.load(uRL);
     }
 
-    public void changeData(){//TODO type in city name
-        webEngine.load(uRL);
+    public void changeDataWindow() throws IOException {//TODO type in city name
+
+        Scene scene = new Scene(FXMLLoader.load((Objects.requireNonNull(getClass().getResource("popUp.fxml")))));
+
+        Stage stage = new Stage();
+        stage.setTitle("Type in city name and currency code");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void changeScene(){

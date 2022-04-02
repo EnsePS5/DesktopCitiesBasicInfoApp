@@ -27,7 +27,7 @@
                 <rowConstraints>
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
-                <Button fx:id="dataChangeButton" mnemonicParsing="false" onAction="#changeData" prefHeight="120.0" prefWidth="266.0" text="change data" GridPane.columnIndex="2">
+                <Button fx:id="dataChangeButton" mnemonicParsing="false" onAction="#changeDataWindow" prefHeight="120.0" prefWidth="266.0" text="change data" GridPane.columnIndex="2">
                     <font>
                         <Font name="Trebuchet MS" size="30.0" />
                     </font>
