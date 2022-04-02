@@ -10,9 +10,10 @@ import java.io.IOException;
 public class TPOApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(TPOApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(TPOApplication.class.getResource("main.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Cities Information Application (CIA)");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
