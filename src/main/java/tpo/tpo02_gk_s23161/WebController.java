@@ -6,13 +6,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class WebController implements Initializable {
@@ -29,10 +34,30 @@ public class WebController implements Initializable {
     private TextField cityTextField;
     @FXML
     private TextField currencyTextField;
-
+    @FXML
+    private Label currenciesCountry;
+    @FXML
+    private Label currenciesPLN;
+    @FXML
+    private Label weatherText;
+    @FXML
+    private Label tempText;
+    @FXML
+    private Label countryToGivenText;
+    @FXML
+    private Label countryToPLNText;
+    @FXML
+    private ImageView weatherIcon;
+    @FXML
+    private ImageView tempIcon;
+    @FXML
+    private ImageView countryToGivenIcon;
+    @FXML
+    private ImageView countryToPLNIcon;
 
     private WebEngine webEngine;
-
+    private JSONReader reader;
+    private String imageURL;
 
     private String uRL = "https://pl.wikipedia.org/wiki/";
     private boolean isSecondSceneActive = false;
@@ -42,16 +67,42 @@ public class WebController implements Initializable {
 
         clock();
 
+        try {
+            imageURL = "file:///C:/Users/citio/OneDrive/Pulpit/Programowanie%20Java/TPO02_GK_S23161/src/main/resources/Icons/";
+
+        reader = new JSONReader(new String[]{"Warszawa", "Poland"});
+
+            reader.readData();
+
+            Image image = new Image(new URL(imageURL + reader.weatherStatus()).toString());
+            weatherIcon.setImage(image);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         webEngine = webView.getEngine();
         webEngine.load(uRL + "Warszawa");
     }
 
-    public void acceptChanges() {//TODO type in city name
+    public void acceptChanges() throws IOException {
 
-        String cityName = cityTextField.getText();
+        String[] cityData = cityTextField.getText().split(",");
         String currency = currencyTextField.getText();
 
-        webEngine.load(uRL + cityName);
+        if (cityData.length == 1)
+            reader = new JSONReader(cityData[0]);
+        else
+            reader = new JSONReader(cityData);
+
+        reader.readData();
+
+        Image image = new Image(new URL(imageURL + reader.weatherStatus()).toString());
+        weatherIcon.setImage(image);
+       //TODO SERVICE CONSTRUCTOR?
+
+        //wiki load
+        webEngine.load(uRL + cityData[0]);//TODO add country
     }
 
     public void changeScene(){

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -44,8 +45,8 @@
                      <items>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="120.0" prefWidth="266.0">
                            <children>
-                              <TextField fx:id="cityTextField" layoutX="12.0" layoutY="24.0" prefHeight="26.0" prefWidth="239.0" promptText="Warszawa" />
-                              <Label layoutX="12.0" layoutY="4.0" prefHeight="18.0" prefWidth="150.0" text="City name:">
+                              <TextField fx:id="cityTextField" layoutX="12.0" layoutY="24.0" prefHeight="26.0" prefWidth="239.0" promptText="Warszawa,PL" />
+                              <Label layoutX="12.0" layoutY="4.0" prefHeight="20.0" prefWidth="239.0" text="City name and country code:">
                                  <font>
                                     <Font name="Trebuchet MS" size="16.0" />
                                  </font>
@@ -83,12 +84,57 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="POGODA" textAlignment="CENTER" />
-                  <Label alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="KURS WALUTY KRAJU WOBEC PODANEJ WALUTY" GridPane.rowIndex="1" />
-                  <Label alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="ZLOTY WOBEC PODANEJ WALUTY" GridPane.rowIndex="2" />
-                  <Label alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="OBRAZEK ODPOWIEDNIEJ POGODY" GridPane.columnIndex="1" />
-                  <Label alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="STRZAŁKA W GÓRE LUB W DÓL I PROCENT WZGLĘDEM OSTATNIEGO DNIA" textAlignment="CENTER" textFill="RED" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="STRZAŁKA W GÓRE LUB W DÓL I PROCENT WZGLĘDEM OSTATNIEGO DNIA" textAlignment="CENTER" textFill="#00ff1a" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="weatherText" alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="POGODA" textAlignment="CENTER" />
+                        <ImageView fx:id="weatherIcon" fitHeight="225.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+                  <Label fx:id="currenciesCountry" alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="KURS WALUTY KRAJU WOBEC PODANEJ WALUTY" GridPane.rowIndex="1" />
+                  <GridPane GridPane.columnIndex="1">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label fx:id="tempText" alignment="CENTER" contentDisplay="CENTER" prefHeight="242.0" prefWidth="400.0" text="OBRAZEK ODPOWIEDNIEJ POGODY" wrapText="true" />
+                        <ImageView fx:id="tempIcon" fitHeight="225.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+                  <Label fx:id="currenciesPLN" alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="ZLOTY WOBEC PODANEJ WALUTY" GridPane.rowIndex="2" />
+                  <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <children>
+                        <Label fx:id="countryToGivenText" alignment="CENTER" prefHeight="333.0" prefWidth="200.0" text="STRZAŁKA W GÓRE LUB W DÓL I PROCENT WZGLĘDEM OSTATNIEGO DNIA" textAlignment="CENTER" textFill="RED" wrapText="true" GridPane.columnIndex="1" />
+                        <ImageView fx:id="countryToGivenIcon" fitHeight="225.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </GridPane>
+                  <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="countryToPLNText" alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="STRZAŁKA W GÓRE LUB W DÓL I PROCENT WZGLĘDEM OSTATNIEGO DNIA" textAlignment="CENTER" textFill="#00ff1a" wrapText="true" GridPane.columnIndex="1" />
+                        <ImageView fx:id="countryToPLNIcon" fitHeight="225.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </GridPane>
                </children>
             </GridPane>
             </Pane>
