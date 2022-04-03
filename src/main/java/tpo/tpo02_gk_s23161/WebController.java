@@ -2,21 +2,17 @@ package tpo.tpo02_gk_s23161;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class WebController implements Initializable {
@@ -29,12 +25,16 @@ public class WebController implements Initializable {
     private GridPane secondScene;
     @FXML
     private Button sceneChangeButton;
+    @FXML
+    private TextField cityTextField;
+    @FXML
+    private TextField currencyTextField;
 
 
     private WebEngine webEngine;
 
 
-    private String uRL = "https://pl.wikipedia.org/wiki/Warszawa";
+    private String uRL = "https://pl.wikipedia.org/wiki/";
     private boolean isSecondSceneActive = false;
 
     @Override
@@ -43,24 +43,24 @@ public class WebController implements Initializable {
         clock();
 
         webEngine = webView.getEngine();
-        webEngine.load(uRL);
+        webEngine.load(uRL + "Warszawa");
     }
 
-    public void changeDataWindow() throws IOException {//TODO type in city name
+    public void acceptChanges() {//TODO type in city name
 
-        Scene scene = new Scene(FXMLLoader.load((Objects.requireNonNull(getClass().getResource("popUp.fxml")))));
+        String cityName = cityTextField.getText();
+        String currency = currencyTextField.getText();
 
-        Stage stage = new Stage();
-        stage.setTitle("Type in city name and currency code");
-        stage.setScene(scene);
-        stage.show();
+        webEngine.load(uRL + cityName);
     }
 
     public void changeScene(){
         if (isSecondSceneActive){
 
             webView.setOpacity(1);
+
             secondScene.setOpacity(0);
+            secondScene.setDisable(true);
 
             sceneChangeButton.setText("weather and currencies");
 
@@ -68,7 +68,9 @@ public class WebController implements Initializable {
         }else {
 
             webView.setOpacity(0);
+
             secondScene.setOpacity(1);
+            secondScene.setDisable(false);
 
             sceneChangeButton.setText("wikipedia site");
 

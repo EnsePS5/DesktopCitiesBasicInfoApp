@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -27,12 +28,7 @@
                 <rowConstraints>
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
-                <Button fx:id="dataChangeButton" mnemonicParsing="false" onAction="#changeDataWindow" prefHeight="120.0" prefWidth="266.0" text="change data" GridPane.columnIndex="2">
-                    <font>
-                        <Font name="Trebuchet MS" size="30.0" />
-                    </font>
-                </Button>
-                <Button fx:id="sceneChangeButton" mnemonicParsing="false" onAction="#changeScene" prefHeight="120.0" prefWidth="267.0" text="weather and currencies" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1">
+                <Button fx:id="sceneChangeButton" mnemonicParsing="false" onAction="#changeScene" prefHeight="120.0" prefWidth="267.0" text="weather and currencies" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2">
                     <font>
                         <Font name="Trebuchet MS" size="30.0" />
                     </font>
@@ -42,6 +38,35 @@
                         <Font name="Trebuchet MS Bold Italic" size="69.0" />
                     </font>
                 </Label>
+            <AnchorPane prefHeight="120.0" prefWidth="266.0" GridPane.columnIndex="1">
+               <children>
+                  <SplitPane orientation="VERTICAL" prefHeight="120.0" prefWidth="266.0">
+                     <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="120.0" prefWidth="266.0">
+                           <children>
+                              <TextField fx:id="cityTextField" layoutX="12.0" layoutY="24.0" prefHeight="26.0" prefWidth="239.0" promptText="Warszawa" />
+                              <Label layoutX="12.0" layoutY="4.0" prefHeight="18.0" prefWidth="150.0" text="City name:">
+                                 <font>
+                                    <Font name="Trebuchet MS" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="12.0" layoutY="59.0" prefHeight="18.0" prefWidth="150.0" text="Currency code:">
+                                 <font>
+                                    <Font name="Trebuchet MS" size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="currencyTextField" layoutX="12.0" layoutY="79.0" prefHeight="26.0" prefWidth="150.0" promptText="PLN" />
+                              <Button fx:id="acceptButton" layoutX="192.0" layoutY="79.0" mnemonicParsing="false" onAction="#acceptChanges" prefHeight="26.0" prefWidth="58.0" text="Ok" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Trebuchet MS Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
             </GridPane>
         </AnchorPane>
         <AnchorPane fx:id="webViewPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
