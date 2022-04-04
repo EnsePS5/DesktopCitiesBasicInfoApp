@@ -2,33 +2,40 @@ package tpo.tpo02_gk_s23161;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import javafx.scene.image.Image;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class JSONReader {
 
     private static final String API_KEY = "3224f4c32eab6bb02f132e940a5a69b1";
-    private final String urlString;
+    private final String urlWeatherString;
+    private final String urlCurrencyString;
+    private final String urlCurrencyPLNString;
     private String iconID;
 
-    public Map<String, Object> resultMap, mainMap, windMap, iconMap;
+    public Map<String, Object> resultMap, mainMap, windMap, iconMap,
+            currencyResultMap, currencyRateInfoMap, currencyPLNResultMap, currencyPLNInfoMap;
 
     //TODO maybe lat lon geolocation
-    public JSONReader(String[] cityData){
-        urlString = "https://api.openweathermap.org/data/2.5/weather?q="
+    public JSONReader(String[] cityData,String currency){
+        urlWeatherString = "https://api.openweathermap.org/data/2.5/weather?q="
                 + cityData[0] + "," + cityData[1] + "&appid=" + API_KEY + "&units=metric";
+        urlCurrencyString = "https://api.exchangerate.host/convert?from="
+                + getCurrency(cityData[1]) + "&to=" + currency;
+        urlCurrencyPLNString = "https://api.exchangerate.host/convert?from=PLN&to=" + currency;
     }
     public JSONReader(String cityData){
-        urlString = "https://api.openweathermap.org/data/2.5/weather?q="
+        urlWeatherString = "https://api.openweathermap.org/data/2.5/weather?q="
                 + cityData + "&appid=" + API_KEY + "&units=metric";
+        urlCurrencyString = "https://api.exchangerate.host/convert?from=PLN&to=PLN";
+        urlCurrencyPLNString = "https://api.exchangerate.host/convert?from=PLN&to=PLN";
     }
 
     public static Map<String, Object> jsonToMap(String record){
@@ -36,19 +43,11 @@ public class JSONReader {
                 record, new TypeToken<HashMap<String, Object>>() {}.getType()
         );
     }
-    //converts data from JSON to string and packs it into map variable
-    public void readData() throws IOException {
-        StringBuilder result = new StringBuilder();
-        URL url = new URL(urlString);
-        URLConnection conn = url.openConnection();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-        String line;
-        while ((line = bufferedReader.readLine()) != null){
-            result.append(line);
-            System.out.println(line);
-        }
-        bufferedReader.close();
+    //converts data from JSON to string and packs it into map variable
+    public void readDataWeather() throws IOException {
+
+        StringBuilder result = readJSON(urlWeatherString,false);
 
         System.out.println(result);
 
@@ -58,6 +57,36 @@ public class JSONReader {
 
         ArrayList<Map<String, Object>> iconArr = ((ArrayList<Map<String, Object>>) resultMap.get("weather"));
         iconMap = iconArr.get(iconArr.size()-1);
+    }
+
+    //converts data from JSON to string and packs it into map variable
+    public void readDataRateCurrency() throws IOException {
+
+        StringBuilder result = readJSON(urlCurrencyString,true);
+
+        currencyResultMap = jsonToMap(result.toString());
+        currencyRateInfoMap = jsonToMap(currencyResultMap.get("query").toString());
+
+    }
+
+    //converts data from JSON to string and packs it into map variable
+    public void readDataPLNCurrency() throws IOException{
+
+        StringBuilder result = readJSON(urlCurrencyPLNString,true);
+
+        currencyPLNResultMap = jsonToMap(result.toString());
+        currencyPLNInfoMap = jsonToMap(currencyPLNResultMap.get("query").toString());
+
+    }
+    //basic info about the currency Rate in current location
+    public String currencyRateStatusInfo(){
+        return currencyRateInfoMap.get("from").toString() + " -> " +
+                currencyRateInfoMap.get("to").toString() + "\n" + currencyResultMap.get("result").toString();
+    }
+    //basic info about the PLN rate to given currency
+    public String currencyPLNStatusInfo(){
+        return currencyPLNInfoMap.get("from").toString() + " -> " +
+                currencyPLNInfoMap.get("to").toString() + "\n" + currencyPLNResultMap.get("result").toString();
     }
     // depends on "icon" id returns certain file name to load
     public String weatherStatusImage(){
@@ -99,5 +128,40 @@ public class JSONReader {
 
         return "HighTemp.png";
     }
+    // returns currency that is obligatory in this country
+    public static String getCurrency(String country){
+        Locale[] availableLocales = Locale.getAvailableLocales();
+        for (Locale availableLocale : availableLocales) {
+            if (availableLocale.getCountry().equalsIgnoreCase(country))
+                return Currency.getInstance(availableLocale).getCurrencyCode();
+        }
+        return "";
+    }
+    // reads JSON files and coverts them
+    private static StringBuilder readJSON(String urlVar, boolean isHttp) throws IOException {
 
+        StringBuilder result = new StringBuilder();
+        URL url = new URL(urlVar);
+        BufferedReader bufferedReader;
+
+        if (isHttp){
+            HttpURLConnection request = (HttpURLConnection) url.openConnection();
+            request.connect();
+
+            bufferedReader = new BufferedReader(new InputStreamReader((InputStream) request.getContent()));
+        }else {
+            URLConnection conn = url.openConnection();
+            bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        }
+
+        String line;
+        while ((line = bufferedReader.readLine()) != null){
+            result.append(line);
+        }
+        System.out.println(result);
+
+        bufferedReader.close();
+
+        return result;
+    }
 }

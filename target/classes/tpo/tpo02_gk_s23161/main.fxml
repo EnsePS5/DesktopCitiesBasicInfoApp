@@ -100,7 +100,10 @@
                         <ImageView fx:id="weatherIcon" fitHeight="225.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
-                  <Label fx:id="currenciesCountry" alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="KURS WALUTY KRAJU WOBEC PODANEJ WALUTY" GridPane.rowIndex="1" />
+                  <Label fx:id="currenciesCountry" alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="KURS WALUTY KRAJU WOBEC PODANEJ WALUTY" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Berlin Sans FB" size="50.0" />
+                     </font></Label>
                   <GridPane GridPane.columnIndex="1">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -117,7 +120,10 @@
                         <ImageView fx:id="tempIcon" fitHeight="225.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
-                  <Label fx:id="currenciesPLN" alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="ZLOTY WOBEC PODANEJ WALUTY" GridPane.rowIndex="2" />
+                  <Label fx:id="currenciesPLN" alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="ZLOTY WOBEC PODANEJ WALUTY" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Berlin Sans FB" size="50.0" />
+                     </font></Label>
                   <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

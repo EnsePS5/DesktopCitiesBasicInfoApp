@@ -71,9 +71,10 @@ public class WebController implements Initializable {
         try {
             imageURL = "file:///C:/Users/citio/OneDrive/Pulpit/Programowanie%20Java/TPO02_GK_S23161/src/main/resources/Icons/";
 
-        reader = new JSONReader(new String[]{"Warszawa", "Poland"});
+        reader = new JSONReader(new String[]{"Warszawa", "PL"},"PLN");
 
         this.weatherPreparation(reader);
+        this.currencyPreparation(reader);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,19 +92,18 @@ public class WebController implements Initializable {
         if (cityData.length == 1)
             reader = new JSONReader(cityData[0]);
         else
-            reader = new JSONReader(cityData);
+            reader = new JSONReader(cityData,currency);
 
         this.weatherPreparation(reader);
-
-       //TODO SERVICE CONSTRUCTOR?
+        this.currencyPreparation(reader);
 
         //wiki load
-        webEngine.load(uRL + cityData[0]);//TODO add country
+        webEngine.load(uRL + cityData[0]);
     }
 
     // prepares all needed information about weather in current city.
     private void weatherPreparation(JSONReader reader) throws IOException {
-        reader.readData();
+        reader.readDataWeather();
 
         Image image = new Image(new URL(imageURL + reader.weatherStatusImage()).toString());
         weatherIcon.setImage(image);
@@ -113,6 +113,14 @@ public class WebController implements Initializable {
 
         weatherText.setText(reader.weatherStatusInfo());
         tempText.setText(reader.tempStatusInfo());
+    }
+    // prepares all needed information about currencies in current city.
+    private void currencyPreparation(JSONReader reader) throws IOException{
+        reader.readDataRateCurrency();
+        reader.readDataPLNCurrency();
+
+        currenciesCountry.setText(reader.currencyRateStatusInfo());
+        currenciesPLN.setText(reader.currencyPLNStatusInfo());
     }
     // Changes scene from wikipedia site to weather and currencies info
     public void changeScene(){

@@ -14,7 +14,7 @@ public class Service {
     //methods
     public String getWeather(String city) throws IOException {
         reader = new JSONReader(city);
-        reader.readData();
+        reader.readDataWeather();
         return reader.mainMap.toString();
     }
     public Double getRateFor(String currencyCode){
