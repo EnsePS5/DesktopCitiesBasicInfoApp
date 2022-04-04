@@ -62,6 +62,7 @@ public class WebController implements Initializable {
     private String uRL = "https://pl.wikipedia.org/wiki/";
     private boolean isSecondSceneActive = false;
 
+    // Program starting method
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -72,10 +73,7 @@ public class WebController implements Initializable {
 
         reader = new JSONReader(new String[]{"Warszawa", "Poland"});
 
-            reader.readData();
-
-            Image image = new Image(new URL(imageURL + reader.weatherStatus()).toString());
-            weatherIcon.setImage(image);
+        this.weatherPreparation(reader);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,7 +82,7 @@ public class WebController implements Initializable {
         webEngine = webView.getEngine();
         webEngine.load(uRL + "Warszawa");
     }
-
+    // update that happens after button "ok" clicking
     public void acceptChanges() throws IOException {
 
         String[] cityData = cityTextField.getText().split(",");
@@ -95,16 +93,25 @@ public class WebController implements Initializable {
         else
             reader = new JSONReader(cityData);
 
-        reader.readData();
+        this.weatherPreparation(reader);
 
-        Image image = new Image(new URL(imageURL + reader.weatherStatus()).toString());
-        weatherIcon.setImage(image);
        //TODO SERVICE CONSTRUCTOR?
 
         //wiki load
         webEngine.load(uRL + cityData[0]);//TODO add country
     }
 
+    // prepares all needed information about weather in current city.
+    private void weatherPreparation(JSONReader reader) throws IOException {
+        reader.readData();
+
+        Image image = new Image(new URL(imageURL + reader.weatherStatus()).toString());
+        weatherIcon.setImage(image);
+
+        Image temperature = new Image(new URL(imageURL + reader.tempStatus()).toString());
+        tempIcon.setImage(temperature);
+    }
+    // Changes scene from wikipedia site to weather and currencies info
     public void changeScene(){
         if (isSecondSceneActive){
 
@@ -128,7 +135,7 @@ public class WebController implements Initializable {
             isSecondSceneActive = true;
         }
     }
-
+    // working clock in left top corner
     private void clock(){
 
         Thread timeThread = new Thread(() -> {

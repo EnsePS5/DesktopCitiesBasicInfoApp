@@ -81,5 +81,16 @@ public class JSONReader {
             default -> "SnowAndRain.png";
         };
     }
+    public String tempStatus(){
+
+        iconID = mainMap.get("temp").toString();
+
+        if (Double.parseDouble(iconID) < 5)
+            return "LowTemp.png";
+        if (Double.parseDouble(iconID) >= 5 && Double.parseDouble(iconID) < 25)
+            return "NormalTemp.png";
+
+        return "HighTemp.png";
+    }
 
 }
