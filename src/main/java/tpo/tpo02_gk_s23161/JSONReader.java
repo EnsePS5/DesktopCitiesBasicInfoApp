@@ -14,7 +14,7 @@ import java.util.*;
 
 public class JSONReader {
 
-    private static final String API_KEY = "3224f4c32eab6bb02f132e940a5a69b1";
+    private static final String API_KEY = "EMPTY WITH PURPOSE";
     private final String urlWeatherString;
     private final String urlCurrencyString;
     private final String urlCurrencyPLNString;
