@@ -105,11 +105,14 @@ public class WebController implements Initializable {
     private void weatherPreparation(JSONReader reader) throws IOException {
         reader.readData();
 
-        Image image = new Image(new URL(imageURL + reader.weatherStatus()).toString());
+        Image image = new Image(new URL(imageURL + reader.weatherStatusImage()).toString());
         weatherIcon.setImage(image);
 
-        Image temperature = new Image(new URL(imageURL + reader.tempStatus()).toString());
+        Image temperature = new Image(new URL(imageURL + reader.tempStatusImage()).toString());
         tempIcon.setImage(temperature);
+
+        weatherText.setText(reader.weatherStatusInfo());
+        tempText.setText(reader.tempStatusInfo());
     }
     // Changes scene from wikipedia site to weather and currencies info
     public void changeScene(){

@@ -93,7 +93,10 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label fx:id="weatherText" alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="POGODA" textAlignment="CENTER" />
+                        <Label fx:id="weatherText" alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="POGODA" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="Berlin Sans FB" size="30.0" />
+                           </font></Label>
                         <ImageView fx:id="weatherIcon" fitHeight="225.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
@@ -107,7 +110,10 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label fx:id="tempText" alignment="CENTER" contentDisplay="CENTER" prefHeight="242.0" prefWidth="400.0" text="OBRAZEK ODPOWIEDNIEJ POGODY" wrapText="true" />
+                        <Label fx:id="tempText" alignment="CENTER" contentDisplay="CENTER" prefHeight="242.0" prefWidth="400.0" text="OBRAZEK ODPOWIEDNIEJ POGODY" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="Berlin Sans FB" size="36.0" />
+                           </font></Label>
                         <ImageView fx:id="tempIcon" fitHeight="225.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
@@ -121,6 +127,9 @@
                         <Label fx:id="countryToGivenText" alignment="CENTER" prefHeight="333.0" prefWidth="200.0" text="STRZAŁKA W GÓRE LUB W DÓL I PROCENT WZGLĘDEM OSTATNIEGO DNIA" textAlignment="CENTER" textFill="RED" wrapText="true" GridPane.columnIndex="1" />
                         <ImageView fx:id="countryToGivenIcon" fitHeight="225.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
+                     <rowConstraints>
+                        <RowConstraints />
+                     </rowConstraints>
                   </GridPane>
                   <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <columnConstraints>

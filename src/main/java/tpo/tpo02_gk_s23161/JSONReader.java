@@ -36,7 +36,7 @@ public class JSONReader {
                 record, new TypeToken<HashMap<String, Object>>() {}.getType()
         );
     }
-
+    //converts data from JSON to string and packs it into map variable
     public void readData() throws IOException {
         StringBuilder result = new StringBuilder();
         URL url = new URL(urlString);
@@ -58,14 +58,9 @@ public class JSONReader {
 
         ArrayList<Map<String, Object>> iconArr = ((ArrayList<Map<String, Object>>) resultMap.get("weather"));
         iconMap = iconArr.get(iconArr.size()-1);
-
-        System.out.println("temp -> " + mainMap.get("temp"));
-        System.out.println("humidity -> " + mainMap.get("humidity"));
-        System.out.println("wind -> " + windMap.get("speed"));
-        System.out.println("wind Angle -> " + windMap.get("deg"));
-
     }
-    public String weatherStatus(){
+    // depends on "icon" id returns certain file name to load
+    public String weatherStatusImage(){
 
         iconID = iconMap.get("icon").toString();
 
@@ -78,10 +73,22 @@ public class JSONReader {
             case "09d", "09n", "10d", "10n" -> "Rain.png";
             case "11d", "11n" -> "Storm.png";
             case "13d", "13n" -> "Snow.png";
+            case "50d", "50n" -> "Mist.png";
             default -> "SnowAndRain.png";
         };
     }
-    public String tempStatus(){
+    // basic info about the weather in current location
+    public String weatherStatusInfo(){
+        return iconMap.get("description").toString() + "\n" + mainMap.get("pressure").toString() + " HPa\n" +
+                mainMap.get("humidity").toString() + "%\n" + windMap.get("speed").toString() + "km/h";
+    }
+    // basic info about the temperature in current location
+    public String tempStatusInfo(){
+        return "temperature\n" + (int)Double.parseDouble(mainMap.get("temp").toString()) + "°C\nfeels like\n"
+                + (int)Double.parseDouble(mainMap.get("feels_like").toString()) + "°C";
+    }
+    // depends on "temp" value returns certain file name to load
+    public String tempStatusImage(){
 
         iconID = mainMap.get("temp").toString();
 
