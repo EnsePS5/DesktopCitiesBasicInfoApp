@@ -73,7 +73,7 @@
         <AnchorPane fx:id="webViewPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
             <Pane prefHeight="675.0" prefWidth="800.0">
                 <WebView fx:id="webView" prefHeight="675.0" />
-            <GridPane fx:id="secondScene" gridLinesVisible="true" prefHeight="675.0" prefWidth="800.0">
+            <GridPane fx:id="secondScene" disable="true" gridLinesVisible="true" opacity="0.0" prefHeight="675.0" prefWidth="800.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -130,7 +130,10 @@
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
                      <children>
-                        <Label fx:id="countryToGivenText" alignment="CENTER" prefHeight="333.0" prefWidth="200.0" text="STRZAŁKA W GÓRE LUB W DÓL I PROCENT WZGLĘDEM OSTATNIEGO DNIA" textAlignment="CENTER" textFill="RED" wrapText="true" GridPane.columnIndex="1" />
+                        <Label fx:id="countryToGivenText" alignment="CENTER" prefHeight="333.0" prefWidth="200.0" text="STRZAŁKA W GÓRE LUB W DÓL I PROCENT WZGLĘDEM OSTATNIEGO DNIA" textAlignment="CENTER" textFill="RED" wrapText="true" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="Berlin Sans FB" size="35.0" />
+                           </font></Label>
                         <ImageView fx:id="countryToGivenIcon" fitHeight="225.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                      <rowConstraints>
@@ -146,7 +149,10 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label fx:id="countryToPLNText" alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="STRZAŁKA W GÓRE LUB W DÓL I PROCENT WZGLĘDEM OSTATNIEGO DNIA" textAlignment="CENTER" textFill="#00ff1a" wrapText="true" GridPane.columnIndex="1" />
+                        <Label fx:id="countryToPLNText" alignment="CENTER" prefHeight="242.0" prefWidth="400.0" text="STRZAŁKA W GÓRE LUB W DÓL I PROCENT WZGLĘDEM OSTATNIEGO DNIA" textAlignment="CENTER" textFill="#00ff1a" wrapText="true" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="Berlin Sans FB" size="35.0" />
+                           </font></Label>
                         <ImageView fx:id="countryToPLNIcon" fitHeight="225.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </GridPane>

@@ -9,9 +9,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -121,6 +123,27 @@ public class WebController implements Initializable {
 
         currenciesCountry.setText(reader.currencyRateStatusInfo());
         currenciesPLN.setText(reader.currencyPLNStatusInfo());
+
+        reader.readDataRateImage();
+
+        countryToGivenText.setText(reader.fluctuationRateStatusInfo());
+        countryToPLNText.setText(reader.fluctuationPLNStatusInfo());
+
+        Image rateImage = new Image(new URL(imageURL + reader.fluctuationImageRateStatusImage()).toString());
+        countryToGivenIcon.setImage(rateImage);
+
+        if (reader.fluctuationImageRateStatusImage().equals("DownArrow.png"))
+            countryToGivenText.setTextFill(Color.RED);
+        else
+            countryToGivenText.setTextFill(Color.GREEN);
+
+        Image plnImage = new Image(new URL(imageURL + reader.fluctuationImagePLNStatusImage()).toString());
+        countryToPLNIcon.setImage(plnImage);
+
+        if (reader.fluctuationImagePLNStatusImage().equals("DownArrow.png"))
+            countryToPLNText.setTextFill(Color.RED);
+        else
+            countryToPLNText.setTextFill(Color.GREEN);
     }
     // Changes scene from wikipedia site to weather and currencies info
     public void changeScene(){
